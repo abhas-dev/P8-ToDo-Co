@@ -18,7 +18,7 @@
     },
     "require": {
         "php": ">=5.5.9",
-        "symfony/symfony": "3.1.*",
+        "symfony/symfony": "v3.3.0-RC1",
         "doctrine/orm": "^2.5",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-cache-bundle": "^1.2",
@@ -58,6 +58,17 @@
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
+        }
+    },
+    "config": {
+        "disable-tls": true,
+        "secure-http": false
+    },
+    "repositories": {
+        "packagist.org":
+        {
+            "type": "composer",
+            "url": "repo.packagist.org"
         }
     }
 }

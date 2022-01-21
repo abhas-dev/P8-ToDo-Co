@@ -4,6 +4,38 @@ parameters:
 #    parameter_name: value
 
 services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  # makes classes in src/AppBundle available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  AppBundle\:
+    resource: '../../src/AppBundle/*'
+    # you can exclude directories or files
+    # but if a service is unused, it's removed anyway
+    exclude: '../../src/AppBundle/{Entity,Repository}'
+
+  # controllers are imported separately to make sure they're public
+  # and have a tag that allows actions to type-hint services
+  AppBundle\Controller\:
+    resource: '../../src/AppBundle/Controller'
+    public: true
+    tags: [ 'controller.service_arguments' ]
+
+
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+#
+#  session.memcached:
+#    class: Memcached
+#    arguments:
+#      persistent_id: "%session_memcached_prefix%"
+#    calls:
+#      - [ addServer, [ "%session_memcached_host%", "%session_memcached_port%" ] ]
+#
+#  session.handler.memcached:
+#    class: Symfony\Component\HttpFoundation\Session\Storage\Handler\MemcachedSessionHandler
+#    arguments: [ "@session.memcached", { prefix: "%session_memcached_prefix%", expiretime: "%session_memcached_expire%" } ]
