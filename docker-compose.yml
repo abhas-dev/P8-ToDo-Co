@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  db:
+    image: mysql
+    container_name: db_docker_sf
+    restart: always
+    volumes:
+      - db-data:/var/lib/mysql
+#    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    command: [ '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_HOST=localhost
+      - MYSQL_PORT=3306
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+#      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - "3309:3306"
+    networks:
+      - dev
+
+  php:
+    build: ./docker/php # on build le dockerfile dans php/
+    container_name: www_docker_sf
+    user: "1000:1000"
+    #    user: ${CURRENT_UID}
+    ports:
+      - "8080:8000"
+    volumes:
+      - ./:/var/www/html
+    restart: always
+    networks:
+      - dev
+
+networks:
+  dev:
+
+volumes:
+  db-data:
