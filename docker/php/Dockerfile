@@ -1,5 +1,5 @@
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
-ARG PHP_VERSION=7.0.8
+ARG PHP_VERSION=7.1.3
 
 FROM php:${PHP_VERSION}-fpm-alpine AS symfony_php
 
