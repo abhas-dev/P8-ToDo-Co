@@ -2,15 +2,14 @@
 
 namespace App\Controller;
 
-use AppBundle\Entity\User;
-use AppBundle\Form\UserType;
+use App\Entity\User;
+use App\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class UserController extends Controller
+class UserController extends AbstractController
 {
     /**
      * @Route("/users", name="user_list")
