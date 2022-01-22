@@ -1,5 +1,5 @@
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
-ARG PHP_VERSION=7.1.3
+ARG PHP_VERSION=7.4
 
 FROM php:${PHP_VERSION}-fpm-alpine AS symfony_php
 
@@ -21,15 +21,35 @@ ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 RUN echo "UTC" > /etc/timezone
 
 # Install mbstring extension
-RUN apk add --no-cache \
-    && docker-php-ext-install mbstring mysqli pdo pdo_mysql tokenizer pcntl\
-    && docker-php-ext-enable mbstring mysqli pdo pdo_mysql tokenizer pcntl \
-    && rm -rf /tmp/*
+#RUN apk add --no-cache \
+#    && docker-php-ext-install mbstring mysqli pdo pdo_mysql tokenizer pcntl\
+#    && docker-php-ext-enable mbstring mysqli pdo pdo_mysql tokenizer pcntl \
+#    && rm -rf /tmp/*
+RUN apk add --update \
+    php7-apcu \
+    php7-curl \
+    php7-gd \
+    php7-json \
+    php7-intl \
+    php7-mbstring \
+    php7-opcache \
+    php7-openssl \
+    php7-pdo \
+    php7-pdo_mysql \
+    php7-tokenizer \
+    php7-xml \
+    php7-zlib \
+    php7-xdebug \
+    curl
 
-RUN apk update && \
-    apk add apache2 && \
-    apk add bash && \
-    apk add nano
+# Set working directory
+WORKDIR /var/www/html
+
+# Install utilities and shadow for permissions chmod commands
+RUN apk update && apk add apache2 bash nano shadow
+
+# On créé un utilisateur avec le même gid/uid que le local
+RUN addgroup --system redpanda --gid 1000 && adduser --system redpanda --uid 1000 --ingroup redpanda
 
 # Install composer
 ENV COMPOSER_HOME /composer
@@ -41,8 +61,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 RUN mkdir -p /usr/local/bin \
     && curl -sSL https://symfony.com/installer -o /usr/local/bin/symfony \
     && chmod a+x /usr/local/bin/symfony
-
-WORKDIR /var/www
 
 
 #FROM php:7.0.4-apache
