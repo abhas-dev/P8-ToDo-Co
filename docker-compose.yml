@@ -33,15 +33,17 @@ services:
 
 ###> doctrine/doctrine-bundle ###
   database:
-    image: postgres:${POSTGRES_VERSION:-13}-alpine
+    image: postgres:13-alpine
+    container_name: db_docker_sf
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
-      POSTGRES_USER: ${POSTGRES_USER:-symfony}
+      POSTGRES_DB: todo
+      POSTGRES_PASSWORD: symfony
+      POSTGRES_USER: symfony
     volumes:
       - db-data:/var/lib/postgresql/data:rw
-    restart: always
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
     networks:
       - dev
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!

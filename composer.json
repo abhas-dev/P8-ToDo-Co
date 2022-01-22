@@ -6,11 +6,7 @@
         "psr-4": {
             "AppBundle\\": "src/AppBundle",
             "App\\": "src/"
-        },
-        "classmap": [
-            "app/AppKernel.php",
-            "app/AppCache.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
@@ -38,11 +34,14 @@
         "symfony/security-csrf": "4.1.*",
         "symfony/translation": "4.1.*",
         "symfony/validator": "4.1.*",
+        "symfony/web-server-bundle": "4.1.*",
         "symfony/yaml": "^4.0"
     },
     "require-dev": {
+        "symfony/dotenv": "^4.0",
         "symfony/phpunit-bridge": "^4.0",
-        "symfony/dotenv": "^4.0"
+        "symfony/stopwatch": "4.1.*",
+        "symfony/web-profiler-bundle": "4.1.*"
     },
     "config": {
         "preferred-install": {
