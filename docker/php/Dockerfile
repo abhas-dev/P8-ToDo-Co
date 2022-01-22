@@ -39,6 +39,7 @@ RUN apk add --update \
     php7-tokenizer \
     php7-xml \
     php7-zlib \
+    php7-pcntl \
     php7-xdebug \
     curl
 
