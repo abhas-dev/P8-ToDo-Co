@@ -19,7 +19,7 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen  \
 
 # On télécharge et deplace composer
 RUN  curl -sS https://getcomposer.org/installer | php -- \
-    &&  mv composer.phar /usr/local/bin/composer 
+    &&  mv composer.phar /usr/local/bin/composer
 
 # On télécharge et deplace le symfony cli
 RUN curl -sS https://get.symfony.com/cli/installer | bash \
