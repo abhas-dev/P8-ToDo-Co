@@ -241,12 +241,12 @@
         "version": "v4.1.12"
     },
     "symfony/phpunit-bridge": {
-        "version": "4.4",
+        "version": "5.2",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "4.3",
-            "ref": "0e1b186400de9d4ab83363138b4eb0072c99b2ab"
+            "version": "5.1",
+            "ref": "f42c00dd9758feeafde5dfad515117753599f8f2"
         },
         "files": [
             ".env.test",

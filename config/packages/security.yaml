@@ -15,7 +15,6 @@ security:
             security: false
 
         main:
-<<<<<<< ours
             anonymous: true
             lazy: true
             provider: doctrine
