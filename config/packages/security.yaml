@@ -15,7 +15,9 @@ security:
             security: false
 
         main:
-            anonymous: lazy
+<<<<<<< ours
+            anonymous: true
+            lazy: true
             provider: doctrine
             pattern: ^/
             form_login:
@@ -25,6 +27,12 @@ security:
                 default_target_path:  /
             logout: ~
 #            logout_on_user_change: true
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
 
     access_control:
 #        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
