@@ -14,7 +14,8 @@ security:
             security: false
 
         main:
-            anonymous: ~
+            anonymous: lazy
+            provider: doctrine
             pattern: ^/
             form_login:
                 login_path: login
