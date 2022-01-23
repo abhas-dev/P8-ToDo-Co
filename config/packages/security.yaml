@@ -1,6 +1,7 @@
 security:
     encoders:
-        App\Entity\User: bcrypt
+        App\Entity\User:
+            algorithm: auto
 
     providers:
         doctrine:
