@@ -124,12 +124,12 @@
         "version": "v4.1.12"
     },
     "symfony/console": {
-        "version": "4.1",
+        "version": "4.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "3.3",
-            "ref": "524e110a6284dae4172aa8cc32db6f819428f6ac"
+            "version": "4.4",
+            "ref": "fd5340d07d4c90504843b53da41525cf42e31f5c"
         },
         "files": [
             "bin/console",
@@ -346,17 +346,16 @@
         "version": "v4.1.12"
     },
     "symfony/twig-bundle": {
-        "version": "4.1",
+        "version": "4.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "3.3",
-            "ref": "7e5381cd17e0e27d1b432af9230b65060b75ac4c"
+            "version": "4.4",
+            "ref": "73baff3f7b3cea12a73812a7cfd2c0924a9e250f"
         },
         "files": [
             "config/packages/test/twig.yaml",
             "config/packages/twig.yaml",
-            "config/routes/dev/twig.yaml",
             "templates/base.html.twig"
         ]
     },
