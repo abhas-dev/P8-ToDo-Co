@@ -299,15 +299,16 @@
         "version": "v4.1.12"
     },
     "symfony/routing": {
-        "version": "4.1",
+        "version": "4.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "4.0",
-            "ref": "22715e3fd48c861b6390ccb16f3aa6d1cd6a58e5"
+            "version": "4.2",
+            "ref": "683dcb08707ba8d41b7e34adb0344bfd68d248a7"
         },
         "files": [
             "config/packages/prod/routing.yaml",
+            "config/packages/routing.yaml",
             "config/routes.yaml"
         ]
     },
