@@ -1,4 +1,7 @@
 {
+    "composer/package-versions-deprecated": {
+        "version": "1.11.99.5"
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -128,16 +131,15 @@
         "version": "v4.1.12"
     },
     "symfony/console": {
-        "version": "4.4",
+        "version": "5.2",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "4.4",
-            "ref": "fd5340d07d4c90504843b53da41525cf42e31f5c"
+            "version": "5.1",
+            "ref": "c6d02bdfba9da13c22157520e32a602dbee8a75c"
         },
         "files": [
-            "bin/console",
-            "config/bootstrap.php"
+            "bin/console"
         ]
     },
     "symfony/dependency-injection": {
@@ -186,15 +188,14 @@
         "version": "v4.1.12"
     },
     "symfony/framework-bundle": {
-        "version": "4.4",
+        "version": "5.2",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "4.4",
-            "ref": "3b9c85f14cad439042f88f94a1fd15fb8ed923c9"
+            "version": "5.2",
+            "ref": "7eb218d19263e5e4a0f9d1d1502d8656098ec857"
         },
         "files": [
-            "config/bootstrap.php",
             "config/packages/cache.yaml",
             "config/packages/framework.yaml",
             "config/packages/test/framework.yaml",
@@ -206,20 +207,17 @@
             "src/Kernel.php"
         ]
     },
+    "symfony/http-client-contracts": {
+        "version": "v2.5.0"
+    },
     "symfony/http-foundation": {
         "version": "v4.1.12"
     },
     "symfony/http-kernel": {
         "version": "v4.1.13"
     },
-    "symfony/inflector": {
-        "version": "v4.1.12"
-    },
     "symfony/intl": {
         "version": "v4.1.12"
-    },
-    "symfony/mime": {
-        "version": "v4.4.36"
     },
     "symfony/monolog-bridge": {
         "version": "v4.1.12"
@@ -243,12 +241,12 @@
         "version": "v4.1.12"
     },
     "symfony/phpunit-bridge": {
-        "version": "4.4",
+        "version": "5.2",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "4.3",
-            "ref": "0e1b186400de9d4ab83363138b4eb0072c99b2ab"
+            "version": "5.1",
+            "ref": "f42c00dd9758feeafde5dfad515117753599f8f2"
         },
         "files": [
             ".env.test",
@@ -263,10 +261,10 @@
     "symfony/polyfill-ctype": {
         "version": "v1.24.0"
     },
-    "symfony/polyfill-intl-icu": {
+    "symfony/polyfill-intl-grapheme": {
         "version": "v1.24.0"
     },
-    "symfony/polyfill-intl-idn": {
+    "symfony/polyfill-intl-icu": {
         "version": "v1.24.0"
     },
     "symfony/polyfill-intl-normalizer": {
@@ -284,19 +282,25 @@
     "symfony/polyfill-php80": {
         "version": "v1.24.0"
     },
+    "symfony/polyfill-php81": {
+        "version": "v1.24.0"
+    },
     "symfony/property-access": {
         "version": "v4.1.12"
+    },
+    "symfony/property-info": {
+        "version": "v5.2.12"
     },
     "symfony/proxy-manager-bridge": {
         "version": "v4.1.12"
     },
     "symfony/routing": {
-        "version": "4.4",
+        "version": "5.2",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "4.2",
-            "ref": "683dcb08707ba8d41b7e34adb0344bfd68d248a7"
+            "version": "5.1",
+            "ref": "8c5b5f86ec3e4547cec9a3ae30c3b40ae51cab1f"
         },
         "files": [
             "config/packages/prod/routing.yaml",
@@ -305,12 +309,12 @@
         ]
     },
     "symfony/security-bundle": {
-        "version": "4.4",
+        "version": "5.2",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "4.4",
-            "ref": "7b4408dc203049666fe23fabed23cbadc6d8440f"
+            "version": "5.1",
+            "ref": "0a4bae19389d3b9cba1ca0102e3b2bccea724603"
         },
         "files": [
             "config/packages/security.yaml"
@@ -333,6 +337,9 @@
     },
     "symfony/stopwatch": {
         "version": "v4.1.12"
+    },
+    "symfony/string": {
+        "version": "v5.2.11"
     },
     "symfony/translation-contracts": {
         "version": "v2.5.0"
