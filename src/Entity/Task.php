@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TaskRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
@@ -29,9 +30,16 @@ class Task
     #[ORM\Column(type: 'boolean')]
     private $isDone;
 
-    public function __construct()
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'tasks')]
+    private $user;
+
+
+    #[ORM\PrePersist]
+    public function prePersist()
     {
-        $this->setCreatedAt(new \DateTime());
+        if (empty($this->createdAt)) {
+            $this->createdAt = new \DateTime();
+        }
         $this->isDone = false;
     }
 
@@ -48,13 +56,6 @@ class Task
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-    }
-
-    public function prePersist()
-    {
-        if (empty($this->createdAt)) {
-           $this->setCreatedAt(new \DateTime());
-        }
     }
 
     public function getTitle()
@@ -96,6 +97,17 @@ class Task
     {
         $this->isDone = $isDone;
 
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
         return $this;
     }
 }
