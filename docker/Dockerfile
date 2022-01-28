@@ -1,4 +1,4 @@
-FROM php:7.4.27-apache-bullseye
+FROM php:8.0.15-apache-bullseye
 
 WORKDIR /var/www/
 

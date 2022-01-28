@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -12,7 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity
  * @UniqueEntity("email")
  */
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Column(type="integer")
@@ -44,7 +45,7 @@ class User implements UserInterface
         return $this->id;
     }
 
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
@@ -54,12 +55,12 @@ class User implements UserInterface
         $this->username = $username;
     }
 
-    public function getSalt()
+    public function getSalt(): ?string
     {
         return null;
     }
 
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -69,7 +70,7 @@ class User implements UserInterface
         $this->password = $password;
     }
 
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -79,7 +80,12 @@ class User implements UserInterface
         $this->email = $email;
     }
 
-    public function getRoles()
+    public function getUserIdentifier(): string
+    {
+        return $this->username;
+    }
+
+    public function getRoles(): array
     {
         return array('ROLE_USER');
     }
