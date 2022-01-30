@@ -13,6 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity('email', message: "Cette adresse email est deja enregistrée")]
+#[UniqueEntity('username', message: "Ce nom d'utilisateur est deja enregistré")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -25,6 +26,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $username;
 
     #[ORM\Column(type: 'string', length: 64)]
+    #[Assert\NotBlank(message: "Vous devez saisir un mot de passe.")]
     private $password;
 
     #[ORM\Column(type: 'string', length: 60, unique: true)]
@@ -71,7 +73,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setPassword($password)
     {
-        $this->password = $password;
+        $this->password = $password ?? "";
     }
 
     public function getEmail(): string
