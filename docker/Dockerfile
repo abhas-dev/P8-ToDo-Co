@@ -1,4 +1,4 @@
-FROM php:8.0.15-apache-bullseye
+FROM php:8.1-apache-bullseye
 
 WORKDIR /var/www/
 
@@ -23,13 +23,14 @@ RUN  curl -sS https://getcomposer.org/installer | php -- \
 
 # On télécharge et deplace le symfony cli
 RUN curl -sS https://get.symfony.com/cli/installer | bash \
-    &&  mv /root/.symfony/bin/symfony /usr/local/bin \
-    &&  docker-php-ext-configure \
+    && mv /root/.symfony/bin/symfony /usr/local/bin \
+    && docker-php-ext-configure \
     intl \
-    &&  docker-php-ext-install \
+    && docker-php-ext-install \
     pdo pdo_mysql opcache intl zip calendar dom mbstring gd xsl \
     \
-    &&  pecl install apcu && docker-php-ext-enable apcu
+    && pecl install apcu && docker-php-ext-enable apcu \
+    && pecl install xdebug && docker-php-ext-enable xdebug
 
 
 # On créé un utilisateur avec le même gid/uid que le local

@@ -43,47 +43,55 @@ class Task
         $this->isDone = false;
     }
 
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    public function getCreatedAt()
+    public function setId($id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt($createdAt)
+    /**
+     * @param \DateTimeInterface|null $createdAt
+     * @return Task
+     */
+    public function setCreatedAt(?\DateTimeInterface $createdAt): Task
     {
         $this->createdAt = $createdAt;
+        return $this;
     }
 
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function setTitle($title)
+    public function setTitle($title): self
     {
         $this->title = $title;
+        return $this;
     }
 
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
 
-    public function setContent($content)
+    public function setContent($content): self
     {
         $this->content = $content;
+        return $this;
     }
 
-    public function isDone()
-    {
-        return $this->isDone;
-    }
-
-    public function toggle($flag)
+    public function setIsDone($flag)
     {
         $this->isDone = $flag;
     }
@@ -91,13 +99,6 @@ class Task
     public function getIsDone(): ?bool
     {
         return $this->isDone;
-    }
-
-    public function setIsDone(bool $isDone): self
-    {
-        $this->isDone = $isDone;
-
-        return $this;
     }
 
     public function getUser(): ?User
