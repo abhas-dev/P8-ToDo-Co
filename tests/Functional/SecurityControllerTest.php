@@ -14,7 +14,8 @@ use Zenstruck\Foundry\Test\ResetDatabase;
 
 class SecurityControllerTest extends WebTestCase
 {
-    use ResetDatabase, Factories;
+    use ResetDatabase;
+    use Factories;
 
     public function test_display_login()
     {
@@ -63,8 +64,6 @@ class SecurityControllerTest extends WebTestCase
 
         $client->followRedirect();
         $this->assertRouteSame('homepage');
-
     }
     // TODO: test de bonne redirection
-
 }
