@@ -14,6 +14,7 @@ class AppFixtures extends Fixture
         // $product = new Product();
         // $manager->persist($product);
         UserFactory::createMany(5, ['tasks' => TaskFactory::new()->many(2, 6)]);
+        UserFactory::createOne(['username' => 'test', 'roles' => ['ROLE_ADMIN']]);
 
         $manager->flush();
     }
