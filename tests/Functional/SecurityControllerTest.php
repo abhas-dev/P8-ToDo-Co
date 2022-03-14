@@ -16,33 +16,37 @@ class SecurityControllerTest extends WebTestCase
 {
     use ResetDatabase, Factories;
 
+    public function setUp(): void
+    {
+        static::ensureKernelShutdown();
+        $this->client = static::createClient();
+    }
+
     public function test_display_login()
     {
-        $client = static::createClient();
-        $client->request(Request::METHOD_GET, '/login');
+        $this->client->request(Request::METHOD_GET, '/login');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertSelectorNotExists('.alert.alert-danger');
     }
 
-    public function test_nologin_with_bad_credentials()
+    public function test_no_login_with_bad_credentials()
     {
-        $client = static::createClient();
-        $crawler = $client->request(Request::METHOD_GET, '/login');
+        $crawler = $this->client->request(Request::METHOD_GET, '/login');
         $form =
             $crawler->selectButton('Se connecter')->form([
                 '_username' => 'test',
                 '_password' => 'test with wrong password'
             ]);
-        $client->submit($form);
-        $client->followRedirect();
+        $this->client->submit($form);
+        $this->client->followRedirect();
         $this->assertSelectorExists('.alert.alert-danger');
     }
 
     public function test_successfull_login()
     {
-        UserFactory::createOne(['username' => 'test', 'roles' => ['ROLE_ADMIN']]);
-        static::ensureKernelShutdown(); // creating factories boots the kernel; shutdown before creating the client
-        $client = static::createClient();
+//        UserFactory::createOne(['username' => 'test', 'roles' => ['ROLE_ADMIN']]);
+//        static::ensureKernelShutdown(); // creating factories boots the kernel; shutdown before creating the client
+//        $client = static::createClient();
 
 //        $crawler = $client->request(Request::METHOD_GET, '/login');
 //        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
@@ -55,13 +59,13 @@ class SecurityControllerTest extends WebTestCase
 //        $client->followRedirect();
 //        $this->assertRouteSame('/');
 
-        $crawler = $client->request(Request::METHOD_POST, '/login_check', [
+        $crawler = $this->client->request(Request::METHOD_POST, '/login_check', [
             '_username' => 'test',
             '_password' => '12345678',
         ]);
 //        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
 
-        $client->followRedirect();
+        $this->client->followRedirect();
         $this->assertRouteSame('homepage');
 
     }

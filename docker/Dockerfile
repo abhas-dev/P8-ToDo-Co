@@ -31,6 +31,11 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash \
     \
     && pecl install apcu && docker-php-ext-enable apcu \
     && pecl install xdebug && docker-php-ext-enable xdebug
+#    && echo 'zend_extension=xdebug' >> /usr/local/etc/php/php.ini \
+#    && echo 'xdebug.mode=develop,debug' >> /usr/local/etc/php/php.ini \
+#    && echo 'xdebug.client_host=host.docker.internal' >> /usr/local/etc/php/php.ini \
+#    && echo 'xdebug.start_with_request=yes' >> /usr/local/etc/php/php.ini \
+#    && echo 'session.save_path = "/tmp"' >> /usr/local/etc/php/php.ini
 
 
 # On créé un utilisateur avec le même gid/uid que le local
