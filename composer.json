@@ -73,6 +73,10 @@
             "php bin/console doctrine:schema:update -f",
             "php bin/console doctrine:fixtures:load -n"
         ],
+        "test": [
+            "@putenv XDEBUG_MODE=coverage",
+            "phpunit --colors -v --testdox"
+        ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"

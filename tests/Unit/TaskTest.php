@@ -9,7 +9,7 @@ use Zenstruck\Foundry\Test\ResetDatabase;
 
 class TaskTest extends KernelTestCase
 {
-//    use ResetDatabase, Factories;
+    use ResetDatabase, Factories;
 
     public function test_a_task_is_related_to_a_user()
     {
