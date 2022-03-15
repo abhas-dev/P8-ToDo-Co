@@ -2,10 +2,7 @@
 
 namespace Tests\App\Functional;
 
-use App\Factory\UserFactory;
-use App\Repository\UserRepository;
-use http\Client;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Generator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\SecurityBundle\DataCollector\SecurityDataCollector;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,20 +30,27 @@ class LoginTest extends WebTestCase
         $this->assertSelectorNotExists('.alert.alert-danger');
     }
 
-    public function test_no_login_with_bad_credentials()
+    public function test_successfull_login()
     {
         $crawler = $this->client->request(Request::METHOD_GET, '/login');
-        $form =
-            $crawler->selectButton('Se connecter')->form([
-                '_username' => 'test',
-                '_password' => 'test with wrong password'
-            ]);
+        $form = $crawler->selectButton('Se connecter')->form(self::createFormData());
         $this->client->submit($form);
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+
+        $this->client->enableProfiler();
+
+        if (($profile = $this->client->getProfile()) instanceof Profile) {
+            /** @var SecurityDataCollector $securityCollector */
+            $securityCollector = $profile->getCollector('security');
+
+            $this->assertTrue($securityCollector->isAuthenticated());
+        }
+
         $this->client->followRedirect();
-        $this->assertSelectorExists('.alert.alert-danger');
+        $this->assertRouteSame('homepage');
     }
 
-    public function test_successfull_login()
+    public function test_successfull_login2()
     {
         $crawler = $this->client->request(Request::METHOD_POST, '/login_check', [
             '_username' => 'test',
@@ -67,6 +71,53 @@ class LoginTest extends WebTestCase
         $this->assertRouteSame('homepage');
 
     }
-    // TODO: test de bonne redirection
+
+    /** @dataProvider provideBadData */
+    public function test_should_show_errors(array $formData): void
+    {
+        $crawler = $this->client->request(Request::METHOD_GET, '/login');
+        $form = $crawler->selectButton('Se connecter')->form($formData);
+        $this->client->submit($form);
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+
+        $this->client->enableProfiler();
+
+        if (($profile = $this->client->getProfile()) instanceof Profile) {
+            /** @var SecurityDataCollector $securityCollector */
+            $securityCollector = $profile->getCollector('security');
+
+            $this->assertFalse($securityCollector->isAuthenticated());
+        }
+
+        $this->client->followRedirect();
+        $this->assertRouteSame('login');
+    }
+
+    public function test_no_login_with_bad_credentials()
+    {
+        $crawler = $this->client->request(Request::METHOD_GET, '/login');
+        $form =
+            $crawler->selectButton('Se connecter')->form([
+                '_username' => 'test',
+                '_password' => 'test with wrong password'
+            ]);
+        $this->client->submit($form);
+        $this->client->followRedirect();
+        $this->assertSelectorExists('.alert.alert-danger');
+    }
+
+    public function provideBadData(): Generator
+    {
+        yield 'bad username' => [self::createFormData(['_username' => 'fail'])];
+        yield 'bad password' => [self::createFormData(['_password' => 'fail'])];
+    }
+
+    private static function createFormData(array $overrideData = []): array
+    {
+        return $overrideData + [
+            '_username' => 'test',
+            '_password' => '12345678'
+        ];
+    }
 
 }

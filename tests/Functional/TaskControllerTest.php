@@ -4,6 +4,7 @@ namespace Tests\App\Functional;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use Generator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,10 +29,18 @@ class TaskControllerTest extends WebTestCase
     }
 
     // Utiliser yield et un generators pour tester les differentes url des taches
-    public function test_redirection_on_login_if_not_authenticated()
+
+    /**
+     * @dataProvider provideUri
+     * @param string $uri
+     */
+    public function test_redirection_on_login_if_not_authenticated(string $uri)
     {
-        $this->client->request(Request::METHOD_GET, '/tasks/create');
+        $this->client->request(Request::METHOD_GET, $uri);
+
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+        $this->client->followRedirect();
+        $this->assertRouteSame('login');
     }
 
     public function test_list_tasks_is_up()
@@ -44,14 +53,14 @@ class TaskControllerTest extends WebTestCase
         $crawler = $this->client->click($link);
         static::assertResponseStatusCodeSame(Response::HTTP_OK);
     }
-
-    // TODO: compter les taches
+    
     public function test_list_tasks()
     {
         $this->client->loginUser($this->testUser);
 
         $crawler = $this->client->request(Request::METHOD_GET, '/tasks');
 
+        static::assertSame(18, $crawler->filter('.thumbnail')->count());
         static::assertResponseStatusCodeSame(Response::HTTP_OK);
 
     }
@@ -86,7 +95,14 @@ class TaskControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
-
+    public function provideUri(): Generator
+    {
+        yield 'list' => ['/tasks'];
+        yield 'create' => ['/tasks/create'];
+        yield 'edit' => ['/tasks/2/edit'];
+        yield 'toggle' => ['/tasks/2/toggle'];
+        yield 'delete' => ['/tasks/2/delete'];
+    }
 
 
 

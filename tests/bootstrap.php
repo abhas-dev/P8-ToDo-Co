@@ -16,6 +16,6 @@ if (file_exists(dirname(__DIR__).'/config/bootstrap.php')) {
 (new \Symfony\Component\Filesystem\Filesystem())->remove(__DIR__.'/../var/cache/test');
 
 Zenstruck\Foundry\Test\TestState::addGlobalState(function () {
-    UserFactory::createMany(5, ['tasks' => TaskFactory::new()->many(2, 6)]);
-    UserFactory::createOne(['username' => 'test', 'roles' => ['ROLE_ADMIN']]);
+    UserFactory::createMany(5, ['tasks' => TaskFactory::new()->many(3)]);
+    UserFactory::createOne(['username' => 'test', 'roles' => ['ROLE_ADMIN'], 'tasks' => TaskFactory::new()->many(3)]);
 });
