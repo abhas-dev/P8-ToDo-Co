@@ -30,7 +30,28 @@ class LoginTest extends WebTestCase
         $this->assertSelectorNotExists('.alert.alert-danger');
     }
 
-    public function test_successfull_login()
+    // Dataprovider to add
+//    public function test_successfull_login_as_normal_user()
+//    {
+//        $crawler = $this->client->request(Request::METHOD_GET, '/login');
+//        $form = $crawler->selectButton('Se connecter')->form(self::createFormData());
+//        $this->client->submit($form);
+//        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+//
+//        $this->client->enableProfiler();
+//
+//        if (($profile = $this->client->getProfile()) instanceof Profile) {
+//            /** @var SecurityDataCollector $securityCollector */
+//            $securityCollector = $profile->getCollector('security');
+//
+//            $this->assertTrue($securityCollector->isAuthenticated());
+//        }
+//
+//        $this->client->followRedirect();
+//        $this->assertRouteSame('homepage');
+//    }
+
+    public function test_successfull_login_as_admin()
     {
         $crawler = $this->client->request(Request::METHOD_GET, '/login');
         $form = $crawler->selectButton('Se connecter')->form(self::createFormData());
@@ -44,6 +65,8 @@ class LoginTest extends WebTestCase
             $securityCollector = $profile->getCollector('security');
 
             $this->assertTrue($securityCollector->isAuthenticated());
+//            dd($securityCollector->getRoles()[0]);
+            $this->assertEquals('ROLE_ADMIN', $securityCollector->getRoles()[0]);
         }
 
         $this->client->followRedirect();

@@ -2,7 +2,9 @@
 
 namespace Tests\App\Functional;
 
+use App\Entity\Task;
 use App\Entity\User;
+use App\Repository\TaskRepository;
 use App\Repository\UserRepository;
 use Generator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -11,12 +13,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
 
-class TaskControllerTest extends WebTestCase
+class TaskTest extends WebTestCase
 {
     use ResetDatabase, Factories;
 
     private $client = null;
-
     private User $testUser;
 
     public function setUp(): void
@@ -53,7 +54,7 @@ class TaskControllerTest extends WebTestCase
         $crawler = $this->client->click($link);
         static::assertResponseStatusCodeSame(Response::HTTP_OK);
     }
-    
+
     public function test_list_tasks()
     {
         $this->client->loginUser($this->testUser);
@@ -62,12 +63,12 @@ class TaskControllerTest extends WebTestCase
 
         static::assertSame(18, $crawler->filter('.thumbnail')->count());
         static::assertResponseStatusCodeSame(Response::HTTP_OK);
-
     }
 
     public function test_create_task()
     {
         $this->client->loginUser($this->testUser);
+        $totalTasks = sizeof($this->client->getContainer()->get(TaskRepository::class)->findAll());
 
         $crawler = $this->client->request(Request::METHOD_GET, '/');
 
@@ -84,6 +85,9 @@ class TaskControllerTest extends WebTestCase
         $this->client->followRedirect();
         $this->assertSelectorExists('.alert.alert-success');
 
+        $newTotalTasks = sizeof($this->client->getContainer()->get(TaskRepository::class)->findAll());
+
+        self::assertEquals($totalTasks + 1, $newTotalTasks);
     }
 
     // TODO
@@ -92,7 +96,54 @@ class TaskControllerTest extends WebTestCase
         $this->client->loginUser($this->testUser);
 
         $crawler = $this->client->request(Request::METHOD_GET, '/tasks/2/edit');
-        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        $form = $crawler->selectButton('Modifier')->form();
+        $form['task[title]'] = 'Titre modifié';
+        $form['task[content]'] = 'Contenu modifié';
+        $this->client->submit($form);
+
+        $this->assertResponseRedirects();
+        $this->client->followRedirect();
+        $this->assertRouteSame('task_list');
+        $this->assertSelectorExists('.alert.alert-success');
+
+        /** @var Task $task */
+        $task = $this->client->getContainer()->get(TaskRepository::class)->findOneBy(['id' => 2]);
+        self::assertEquals('Titre modifié', $task->getTitle());
+        self::assertEquals('Contenu modifié', $task->getContent());
+    }
+
+    public function test_toggle_task()
+    {
+        $this->client->loginUser($this->testUser);
+        /** @var Task $task */
+        $oldTaskState = $this->client->getContainer()->get(TaskRepository::class)->find(2)->getIsDone();
+
+        $this->client->request(Request::METHOD_GET, '/tasks/2/toggle');
+
+        $this->assertResponseRedirects();
+        $this->client->followRedirect();
+        $this->assertRouteSame('task_list');
+        $this->assertSelectorExists('.alert.alert-success');
+
+        /** @var Task $task */
+        $task = $this->client->getContainer()->get(TaskRepository::class)->find(2)->getIsDone();
+
+        self::assertNotEquals($oldTaskState, $task);
+    }
+
+    public function test_delete_task()
+    {
+        $this->client->loginUser($this->testUser);
+
+        $this->client->request(Request::METHOD_GET, '/tasks/2/delete');
+
+        $this->assertResponseRedirects();
+        $this->client->followRedirect();
+        $this->assertRouteSame('task_list');
+        $this->assertSelectorExists('.alert.alert-success');
+
+        $this->assertNull($this->getContainer()->get(TaskRepository::class)->find(2));
     }
 
     public function provideUri(): Generator
