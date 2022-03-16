@@ -41,3 +41,10 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash \
 # On créé un utilisateur avec le même gid/uid que le local
 RUN addgroup --system redpanda --gid 1000 && adduser --system redpanda --uid 1000 --ingroup redpanda
 RUN #usermod -u 1000 www-data
+
+#zend_extension=xdebug
+#xdebug.mode=develop,debug
+#xdebug.client_host=host.docker.internal
+#xdebug.start_with_request=yes
+#session.save_path = "/tmp"
+#xdebug.discover_client_host=1

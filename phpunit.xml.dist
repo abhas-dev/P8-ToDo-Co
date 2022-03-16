@@ -31,7 +31,7 @@
     </testsuites>
 
 
-    <coverage processUncoveredFiles="true" cacheDirectory="/var/cache/coverage">
+    <coverage processUncoveredFiles="true" cacheDirectory="var/cache/coverage">
         <include>
             <directory suffix=".php">src</directory>
         </include>
@@ -41,8 +41,8 @@
             <directory>src/Factory</directory>
         </exclude>
         <report>
-            <clover outputFile="var/coverage/clover.xml"/>
-            <html outputDirectory="var/coverage/html" lowUpperBound="35" highLowerBound="70" />
+            <clover outputFile="var/cache/coverage/clover.xml"/>
+            <html outputDirectory="var/cache/coverage/html" lowUpperBound="35" highLowerBound="70" />
         </report>
     </coverage>
 
