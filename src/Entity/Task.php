@@ -22,17 +22,17 @@ class Task
 
     #[ORM\Column(type: Types::STRING)]
     #[Assert\NotBlank(message: "Vous devez saisir un titre.")]
-    private $title;
+    private ?string $title = null;
 
     #[ORM\Column(type: 'text')]
     #[Assert\NotBlank(message: "Vous devez saisir du contenu.")]
-    private $content;
+    private ?string $content = null;
 
     #[ORM\Column(type: 'boolean')]
-    private $isDone;
+    private bool $isDone = false;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'tasks')]
-    private $user;
+    private ?User $user = null;
 
 
     #[ORM\PrePersist]
@@ -70,7 +70,7 @@ class Task
         return $this;
     }
 
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -81,7 +81,7 @@ class Task
         return $this;
     }
 
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -92,9 +92,10 @@ class Task
         return $this;
     }
 
-    public function setIsDone($flag)
+    public function setIsDone($flag): self
     {
         $this->isDone = $flag;
+        return $this;
     }
 
     public function getIsDone(): ?bool

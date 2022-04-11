@@ -18,7 +18,8 @@ class TaskTest extends WebTestCase
     use ResetDatabase, Factories;
 
     private $client = null;
-    private User $testUser;
+    private User $adminUser;
+    private User $normalUser;
 
     public function setUp(): void
     {
@@ -26,11 +27,11 @@ class TaskTest extends WebTestCase
         $this->client = static::createClient();
 
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $this->testUser = $userRepository->findOneBy(['username' => 'test']);
+        $this->adminUser = $userRepository->findOneBy(['username' => 'admin']);
+        $this->normalUser = $userRepository->findOneBy(['username' => 'user']);
     }
 
     // Utiliser yield et un generators pour tester les differentes url des taches
-
     /**
      * @dataProvider provideUri
      * @param string $uri
@@ -46,7 +47,7 @@ class TaskTest extends WebTestCase
 
     public function test_list_tasks_is_up()
     {
-        $this->client->loginUser($this->testUser);
+        $this->client->loginUser($this->normalUser);
 
         $crawler = $this->client->request(Request::METHOD_GET, '/');
 
@@ -57,17 +58,17 @@ class TaskTest extends WebTestCase
 
     public function test_list_tasks()
     {
-        $this->client->loginUser($this->testUser);
+        $this->client->loginUser($this->normalUser);
 
         $crawler = $this->client->request(Request::METHOD_GET, '/tasks');
 
-        static::assertSame(18, $crawler->filter('.thumbnail')->count());
+        static::assertSame(21, $crawler->filter('.thumbnail')->count());
         static::assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
     public function test_create_task()
     {
-        $this->client->loginUser($this->testUser);
+        $this->client->loginUser($this->normalUser);
         $totalTasks = sizeof($this->client->getContainer()->get(TaskRepository::class)->findAll());
 
         $crawler = $this->client->request(Request::METHOD_GET, '/');
@@ -93,7 +94,7 @@ class TaskTest extends WebTestCase
     // TODO
     public function test_edit_task()
     {
-        $this->client->loginUser($this->testUser);
+        $this->client->loginUser($this->normalUser);
 
         $crawler = $this->client->request(Request::METHOD_GET, '/tasks/2/edit');
 
@@ -115,7 +116,7 @@ class TaskTest extends WebTestCase
 
     public function test_toggle_task()
     {
-        $this->client->loginUser($this->testUser);
+        $this->client->loginUser($this->normalUser);
         /** @var Task $task */
         $oldTaskState = $this->client->getContainer()->get(TaskRepository::class)->find(2)->getIsDone();
 
@@ -126,15 +127,42 @@ class TaskTest extends WebTestCase
         $this->assertRouteSame('task_list');
         $this->assertSelectorExists('.alert.alert-success');
 
+        // TODO: verifier avec le crawler au lieu de bdd
         /** @var Task $task */
         $task = $this->client->getContainer()->get(TaskRepository::class)->find(2)->getIsDone();
 
         self::assertNotEquals($oldTaskState, $task);
     }
 
-    public function test_delete_task()
+    public function test_cant_delete_if_not_owner()
     {
-        $this->client->loginUser($this->testUser);
+        $this->client->loginUser($this->normalUser);
+
+        $this->client->request(Request::METHOD_GET, '/tasks/7/delete');
+
+        $this->assertResponseStatusCodeSame(RESPONSE::HTTP_FORBIDDEN);
+
+        $this->assertNotNull($this->getContainer()->get(TaskRepository::class)->find(2));
+    }
+
+//    // TODO: task with author anonymous
+//    public function test_can_delete_if_owner_anonymous_and_authenticated_as_admin()
+//    {
+//        $this->client->loginUser($this->adminUser);
+//
+//        $this->client->request(Request::METHOD_GET, '/tasks/2/delete');
+//
+//        $this->assertResponseRedirects();
+//        $this->client->followRedirect();
+//        $this->assertRouteSame('task_list');
+//        $this->assertSelectorExists('.alert.alert-success');
+//
+//        $this->assertNull($this->getContainer()->get(TaskRepository::class)->find(2));
+//    }
+
+    public function test_delete_task_as_owner()
+    {
+        $this->client->loginUser($this->normalUser);
 
         $this->client->request(Request::METHOD_GET, '/tasks/2/delete');
 

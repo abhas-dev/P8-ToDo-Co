@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
 
-class DefaultControllerTest extends WebTestCase
+class HomepageTest extends WebTestCase
 {
     use ResetDatabase, Factories;
 
@@ -23,7 +23,7 @@ class DefaultControllerTest extends WebTestCase
         $this->client = static::createClient();
 
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $this->testUser = $userRepository->findOneBy(['username' => 'test']);
+        $this->testUser = $userRepository->findOneBy(['username' => 'user']);
     }
 
     public function test_homepage_is_up()
