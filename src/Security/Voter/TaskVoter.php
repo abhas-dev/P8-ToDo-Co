@@ -27,8 +27,9 @@ class TaskVoter extends Voter
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case 'CAN_DELETE':
-                if($subject->getUser() === $user || $subject->getUser() === null && in_array('ROLE_ADMIN', $user->getRoles()))
-                return true;
+                if ($subject->getUser() === $user || $subject->getUser() === null && in_array('ROLE_ADMIN', $user->getRoles())) {
+                    return true;
+                }
         }
 
         return false;

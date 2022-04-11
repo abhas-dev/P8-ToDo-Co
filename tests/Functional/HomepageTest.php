@@ -12,7 +12,8 @@ use Zenstruck\Foundry\Test\ResetDatabase;
 
 class HomepageTest extends WebTestCase
 {
-    use ResetDatabase, Factories;
+    use ResetDatabase;
+    use Factories;
 
     private $client = null;
     private User $testUser;

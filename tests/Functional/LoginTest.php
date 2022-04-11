@@ -13,7 +13,8 @@ use Zenstruck\Foundry\Test\ResetDatabase;
 
 class LoginTest extends WebTestCase
 {
-    use ResetDatabase, Factories;
+    use ResetDatabase;
+    use Factories;
 
     private $client;
 
@@ -91,7 +92,6 @@ class LoginTest extends WebTestCase
 
         $this->client->followRedirect();
         $this->assertRouteSame('homepage');
-
     }
 
     /** @dataProvider provideBadData */
@@ -141,5 +141,4 @@ class LoginTest extends WebTestCase
             '_password' => '12345678'
         ];
     }
-
 }
