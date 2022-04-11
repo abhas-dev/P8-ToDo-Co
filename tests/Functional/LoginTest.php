@@ -65,7 +65,6 @@ class LoginTest extends WebTestCase
             $securityCollector = $profile->getCollector('security');
 
             $this->assertTrue($securityCollector->isAuthenticated());
-//            dd($securityCollector->getRoles()[0]);
             $this->assertEquals('ROLE_ADMIN', $securityCollector->getRoles()[0]);
         }
 
@@ -73,10 +72,10 @@ class LoginTest extends WebTestCase
         $this->assertRouteSame('homepage');
     }
 
-    public function test_successfull_login2()
+    public function test_successfull_login_as_normal_user()
     {
         $crawler = $this->client->request(Request::METHOD_POST, '/login_check', [
-            '_username' => 'test',
+            '_username' => 'user',
             '_password' => '12345678',
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
@@ -138,7 +137,7 @@ class LoginTest extends WebTestCase
     private static function createFormData(array $overrideData = []): array
     {
         return $overrideData + [
-            '_username' => 'test',
+            '_username' => 'admin',
             '_password' => '12345678'
         ];
     }

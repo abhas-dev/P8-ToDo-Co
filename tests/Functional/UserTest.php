@@ -25,8 +25,8 @@ class UserTest extends WebTestCase
         $this->client = static::createClient();
 
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $this->normalUser = $userRepository->find(1);
-        $this->adminUser = $userRepository->findOneBy(['username' => 'test']);
+        $this->normalUser = $userRepository->findOneBy(['username' => 'user']);
+        $this->adminUser = $userRepository->findOneBy(['username' => 'admin']);
     }
 
     /**
@@ -77,7 +77,7 @@ class UserTest extends WebTestCase
         $crawler = $this->client->request(Request::METHOD_GET, '/users');
 
         static::assertResponseStatusCodeSame(Response::HTTP_OK);
-        static::assertSame(7, $crawler->filter('tr')->count());
+        static::assertSame(8, $crawler->filter('tr')->count());
     }
 
     public function test_create_user()
