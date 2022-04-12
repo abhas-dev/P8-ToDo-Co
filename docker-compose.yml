@@ -27,6 +27,14 @@ services:
     networks:
       - dev
 
+  blackfire:
+    image: blackfire/blackfire:2
+    ports: [ "8307" ]
+    env_file:
+      - .env.local
+    networks:
+      - dev
+
 networks:
   dev:
 
