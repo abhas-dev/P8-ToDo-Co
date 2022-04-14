@@ -4,10 +4,10 @@ security:
   enable_authenticator_manager: true
 
   providers:
-    doctrine:
-      entity:
-        class: App\Entity\User
-        property: username
+    doctrine: # Nom du fournisseur
+      entity: # Type du fournisseur
+        class: App\Entity\User # Classe utilisée
+        property: username # Proprieté utilisée comme identifiant
 
   firewalls:
     dev:
@@ -16,11 +16,11 @@ security:
 
     main:
         lazy: true
-        provider: doctrine
-        pattern: ^/
-        form_login:
-            login_path: login
-            check_path: login_check
+        provider: doctrine # Nom du provider utilisé
+        pattern: ^/ # Quelle urls seront derriere ce firewall ( toutes car /)
+        form_login: # Authenticator utilisé
+            login_path: login # Route pour acceder au login
+            check_path: login_check # Route pour verifier les identifiants
             always_use_default_target_path:  true
             default_target_path:  /
         logout: ~
