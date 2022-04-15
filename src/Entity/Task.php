@@ -6,6 +6,7 @@ use App\Repository\TaskRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
@@ -32,7 +33,7 @@ class Task
     private bool $isDone = false;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'tasks')]
-    private ?User $user = null;
+    private ?UserInterface $user = null;
 
 
     #[ORM\PrePersist]
@@ -103,12 +104,12 @@ class Task
         return $this->isDone;
     }
 
-    public function getUser(): ?User
+    public function getUser(): ?UserInterface
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(?UserInterface $user): self
     {
         $this->user = $user;
         return $this;

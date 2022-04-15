@@ -9,16 +9,21 @@ voici quelques recommandations qu'il faudra respecter pour contribuer.
 ``` bash
 git clone project_name
 ```
-2. Choisir une issue à réaliser
-3. Creer une branche locale en la nommant "feature/nom_de_l'issue"
+2. Installer le projet
+3. Choisir une issue à réaliser
+4. Creer une branche locale en la nommant "feature/nom_de_l'issue"
 ``` bash
 git checkout -b "feature/nom_de_l'issue"
 ```
 4. Ecrire votre code
 5. Ecrire les tests, une converture de code d'au moins 70% est attendue
-6. Analyser le code avec PHPStan et corriger si necessaire
+6. Lancer les tests (le coverage se crée automatiquement dans )
 ```bash
-vendor/bin/phpstan analyse -l 6 src/
+composer test
+```
+7. Analyser le code avec PHPStan et corriger si necessaire
+```bash
+vendor/bin/phpstan analyse -l 5 src/
 ```
 7. Ajouter ou modifier la documentation
 8. Enregistrer votre travail dans un commit
@@ -32,4 +37,10 @@ git push --set-upstream origin branch_name
 ```
 10. Ouvrir une pull request
 
-##Ajout d'une fonctionnalité
+##Qualité du code
+
+Lors de l'ouverture d'une pull request une pipeline d'intégration continue se lance
+afin de réaliser plusieurs actions sur le code et notamment la vérification de la
+qualité du code. Afin de valider votre PR il est donc nécessaire de valider les
+étapes d'analyse statique du code, il vous est alors demandé d'utiliser PHPStan
+ainsi que PHP-cs-fixer.
