@@ -43,4 +43,6 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash \
 
 
 # On créé un utilisateur avec le même gid/uid que le local
-RUN addgroup --system redpanda --gid 1000 && adduser --system redpanda --uid 1000 --ingroup redpanda
+RUN #addgroup --system dev --gid 1000 && adduser --system dev --uid 1000 --ingroup dev
+RUN useradd -d /home/dev -m -s /bin/bash dev
+USER dev
