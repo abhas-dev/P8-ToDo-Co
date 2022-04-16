@@ -44,7 +44,7 @@ final class UserFactory extends ModelFactory
             'username' => self::faker()->userName(),
             'password' => '12345678',
             'email' => self::faker()->email(),
-            'roles' => array(self::faker()->randomElement(['ROLE_ADMIN', 'ROLE_USER']))
+            'roles' => array(self::faker()->randomElement(['ROLE_ADMIN', '']))
         ];
     }
 
