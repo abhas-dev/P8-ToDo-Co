@@ -41,29 +41,32 @@ docker exec -it www_docker_sf bash
 ```
 
 ### Install packages
+
 ```
 composer install
 ```
 
 Configure database connexion(no password required)
+
 ```yaml
 DATABASE_URL="mysql://root:@db_docker_sf:3306/todo?serverVersion=5.7"
 ```
 
 Create database and load fixtures
+
 ```bash
 composer prepare
 ```
 
 *Application is available at http://127.0.0.1:8080 \
-*Database port mapped to: 3306 
+*Database port mapped to: 3306
 
 ## Ready to use with
 
 This docker-compose provides you :
 
 - PHP:8.1-apache-bullseye
-    - Composer
-    - Symfony CLI
-    - and some other php extentions
+  - Composer
+  - Symfony CLI
+  - and some other php extentions
 - mysql
