@@ -58,13 +58,19 @@ composer prepare
 *Application is available at http://127.0.0.1:8080 \
 *Database port mapped to: 3306 
 
-## Ready to use with
+### Ready to use with
 
 This docker-compose provides you :
 
 - PHP:8.1-apache-bullseye
-  - Apache <i class="devicon-apache-plain-wordmark"></i>
-  - Composer <i class="devicon-composer-line colored"></i>
-  - Symfony CLI <i class="devicon-symfony-original colored"></i>
+  - Apache
+  - Composer
+  - Symfony CLI
   - and some other php extentions
-- mysql <i class="devicon-mysql-plain-wordmark"></i>
+- mysql
+
+### Run tests
+Coverage is generated in web/coverage folder.
+```bash
+composer test
+```
