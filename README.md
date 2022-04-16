@@ -25,7 +25,7 @@ and reduce its technical debt.
 Clone the project
 
 ```bash
-git@github.com:ahassaine-dev/P8-ToDo-Co.git
+git clone git@github.com:ahassaine-dev/P8-ToDo-Co.git
 ```
 
 Run the docker-compose
@@ -58,12 +58,19 @@ composer prepare
 *Application is available at http://127.0.0.1:8080 \
 *Database port mapped to: 3306 
 
-## Ready to use with
+### Ready to use with
 
 This docker-compose provides you :
 
 - PHP:8.1-apache-bullseye
-    - Composer
-    - Symfony CLI
-    - and some other php extentions
+  - Apache
+  - Composer
+  - Symfony CLI
+  - and some other php extentions
 - mysql
+
+### Run tests
+Coverage is generated in web/coverage folder.
+```bash
+composer test
+```
