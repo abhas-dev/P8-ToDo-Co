@@ -8,6 +8,7 @@
         {% block stylesheets %}
             {#{{ encore_entry_link_tags('app') }}#}
             <!-- Bootstrap Core CSS -->
+{#            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />#}
             <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
             <!-- Custom CSS -->
             <link href="{{ asset('css/shop-homepage.css') }}" rel="stylesheet">
@@ -20,10 +21,10 @@
         {% endblock %}
     </head>
     <body>
-            <nav class="navbar navbar-light navbar-fixed-top" style="background-color: #e3f2fd;" role="navigation">
+            <nav class="navbar navbar-light" style="background-color: #e3f2fd;" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="#">To Do List app</a>
+                        <a class="navbar-brand" href="{{ path('homepage') }}">To Do List app</a>
 
                         <img src="{{ asset('img/Logo_OpenClassrooms.png') }}" alt="OpenClassrooms" />
                     </div>
@@ -32,12 +33,12 @@
 
             <!-- Page Content -->
             <div class="container">
-                <div class="row">
+                <div class="m-3 d-flex justify-content-between">
                     {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>
                     {% endif %}
                     {% if app.user %}
-                        <a href="{{ path('logout') }}" class="pull-right btn btn-danger">Se déconnecter</a>
+                        <a href="{{ path('logout') }}" class="btn btn-danger">Se déconnecter</a>
                     {% endif %}
 
                     {% if not app.user and 'login' != app.request.attributes.get('_route') %}

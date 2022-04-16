@@ -35,12 +35,12 @@ class UserType extends AbstractType
                 'expanded' => true,
                 'choices' => [
                     'Admin' => 'ROLE_ADMIN',
-                    'Utilisateur' => 'ROLE_USER'
+                    'Utilisateur' => ''
                 ]
             ])
         ;
 
-        //        // Data transformer
+        //  Data transformer
         $builder->get('roles')->addModelTransformer(new CallbackTransformer(
             function ($rolesAsArray) {
                 // transform the array to a string
