@@ -25,7 +25,7 @@ and reduce its technical debt.
 Clone the project
 
 ```bash
-git@github.com:ahassaine-dev/P8-ToDo-Co.git
+git clone git@github.com:ahassaine-dev/P8-ToDo-Co.git
 ```
 
 Run the docker-compose
@@ -63,7 +63,8 @@ composer prepare
 This docker-compose provides you :
 
 - PHP:8.1-apache-bullseye
-    - Composer
-    - Symfony CLI
-    - and some other php extentions
-- mysql
+  - Apache <i class="devicon-apache-plain-wordmark"></i>
+  - Composer <i class="devicon-composer-line colored"></i>
+  - Symfony CLI <i class="devicon-symfony-original colored"></i>
+  - and some other php extentions
+- mysql <i class="devicon-mysql-plain-wordmark"></i>
