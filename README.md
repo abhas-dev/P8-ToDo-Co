@@ -13,6 +13,8 @@ and reduce its technical debt.
 - Add features :white_check_mark:
 - Perform a quality and performance audit with Blackfire :white_check_mark:
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/2d957a63a27f4d9c8787d85e77877e1f)](https://www.codacy.com/gh/ahassaine-dev/P8-ToDo-Co/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ahassaine-dev/P8-ToDo-Co&amp;utm_campaign=Badge_Grade)
+
 ## Getting Started
 
 ### Requirements
