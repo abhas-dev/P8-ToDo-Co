@@ -1,5 +1,8 @@
 # ToDo & Co
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b891b34e6b634612b8d1e73d42e72b4d)](https://app.codacy.com/gh/ahassaine-dev/P8-ToDo-Co?utm_source=github.com&utm_medium=referral&utm_content=ahassaine-dev/P8-ToDo-Co&utm_campaign=Badge_Grade_Settings)
+
+
 TodoList is an MVP application developed with symfony 3.1 and PHP 5.5.9. The startup
 whose core business is an application to manage its daily tasks.
 The company has succeeded in raising funds and now wants to improve the quality of the application
