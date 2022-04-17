@@ -1,0 +1,55 @@
+PHPUnit 9.5.13 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.1.4
+Configuration: /var/www/phpunit.xml.dist
+Warning:       No code coverage driver available
+
+Testing 
+Task (Tests\App\Unit\Task)
+ ✔ Task accessors success [3.45 ms]
+ ✔ Task accessors error [0.45 ms]
+ ✔ Task empty [0.10 ms]
+
+User (Tests\App\Unit\User)
+ ✔ User accessors success [0.15 ms]
+ ✔ User accessors error [0.07 ms]
+ ✔ User empty [0.02 ms]
+ ✔ Remove task [0.08 ms]
+
+Homepage (App\Tests\Functional\Homepage)
+ ✔ Homepage is up [487.20 ms]
+ ✔ Homepage [457.07 ms]
+
+Login (Tests\App\Functional\Login)
+ ✔ Display login [408.16 ms]
+ ✔ Successfull login as admin [424.49 ms]
+ ✔ Successfull login as normal user [411.36 ms]
+ ✔ Should show errors with data set "bad username" [465.28 ms]
+ ✔ Should show errors with data set "bad password" [435.62 ms]
+ ✔ No login with bad credentials [457.81 ms]
+
+Task (Tests\App\Functional\Task)
+ ✔ Redirection on login if not authenticated with data set "list" [437.80 ms]
+ ✔ Redirection on login if not authenticated with data set "create" [424.86 ms]
+ ✔ Redirection on login if not authenticated with data set "edit" [434.06 ms]
+ ✔ Redirection on login if not authenticated with data set "toggle" [397.82 ms]
+ ✔ Redirection on login if not authenticated with data set "delete" [416.87 ms]
+ ✔ List tasks is up [449.87 ms]
+ ✔ List tasks [402.24 ms]
+ ✔ Create task [606.41 ms]
+ ✔ Edit task [448.38 ms]
+ ✔ Toggle task [423.26 ms]
+ ✔ Cant delete if not owner [497.12 ms]
+ ✔ Delete task as owner [434.50 ms]
+
+User (Tests\App\Functional\User)
+ ✔ Redirection on login if not authenticated with data set "list" [413.10 ms]
+ ✔ Redirection on login if not authenticated with data set "create" [412.08 ms]
+ ✔ Redirection on login if not authenticated with data set "edit" [395.29 ms]
+ ✔ List users [417.83 ms]
+ ✔ Create user [472.40 ms]
+ ✔ Edit user [453.93 ms]
+
+Time: 00:12.360, Memory: 86.50 MB
+
+OK (33 tests, 97 assertions)

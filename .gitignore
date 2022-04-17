@@ -13,8 +13,6 @@
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
 /vendor/
-/web/bundles/
-/web
 .idea
 
 ###> symfony/phpunit-bridge ###
