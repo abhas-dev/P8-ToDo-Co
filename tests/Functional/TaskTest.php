@@ -51,7 +51,7 @@ class TaskTest extends WebTestCase
 
         $crawler = $this->client->request(Request::METHOD_GET, '/');
 
-        $link = $crawler->selectLink('Consulter la liste des tâches à faire')->link();
+        $link = $crawler->selectLink('Consulter la liste des tâches')->link();
         $crawler = $this->client->click($link);
         static::assertResponseStatusCodeSame(Response::HTTP_OK);
     }
@@ -62,7 +62,7 @@ class TaskTest extends WebTestCase
 
         $crawler = $this->client->request(Request::METHOD_GET, '/tasks');
 
-        static::assertSame(21, $crawler->filter('.thumbnail')->count());
+        static::assertSame(21, $crawler->filter('.card')->count());
         static::assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 

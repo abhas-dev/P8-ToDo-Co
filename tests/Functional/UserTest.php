@@ -97,7 +97,7 @@ class UserTest extends WebTestCase
         $form['user[password][first]'] = '12345678';
         $form['user[password][second]'] = '12345678';
         $form['user[email]'] = 'newuser@test.fr';
-        $form['user[roles]'] = 'ROLE_USER';
+        $form['user[roles]'] = '';
         $this->client->submit($form);
 
         $this->assertResponseRedirects();

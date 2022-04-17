@@ -42,7 +42,7 @@
         </exclude>
         <report>
             <clover outputFile="var/cache/coverage/clover.xml"/>
-            <html outputDirectory="web/coverage/html" lowUpperBound="35" highLowerBound="70" />
+            <html outputDirectory="./web/coverage/html" lowUpperBound="35" highLowerBound="70" />
         </report>
     </coverage>
 
